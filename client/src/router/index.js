@@ -6,6 +6,7 @@ import store from '@/store/index';
 
 /** Other application pages */
 const AuthPage = () => import(/* webpackChunkName: "auth-page" */ '@/views/auth-page/AuthPage.vue');
+const RegistrationPage = () => import(/* webpackChunkName: "auth-page" */ '@/views/registration-page/RegistrationPage.vue');
 // const MainPage = () => import(/* webpackChunkName: "main-page" */ '@/views/main-page/MainPage.vue');
 
 Vue.use(Router);
@@ -46,6 +47,11 @@ const routes = [
 		path      : '/sign-in',
 		name      : 'authPage',
 		component : AuthPage
+	},
+	{
+		path      : '/registration',
+		name      : 'registrationPage',
+		component : RegistrationPage
 	},
 	// {
 	// 	path     : '*',

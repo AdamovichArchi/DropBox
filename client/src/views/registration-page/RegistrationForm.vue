@@ -4,11 +4,19 @@
         @submit.prevent = "validateForm"
         novalidate
     >
-            <!-- Login -->
+        <!-- Login -->
         <v-text-field
             v-model         = "profile.login"
             label           = "Login"
             :error-messages = "loginErrors"
+        ></v-text-field>
+
+        <!-- Email -->
+        <v-text-field
+            v-model         = "profile.email"
+            class           = "email-field"
+            :error-messages = "emailErrors"
+            label           = "Email"
         ></v-text-field>
 
         <!-- Password -->
@@ -21,24 +29,25 @@
             :error-messages = "passwordErrors"
             label           = "Password"
         ></v-text-field>
-        <!-- Link to registration -->
+        
+        <!-- Link to sign-in -->
         <v-btn 
-            class = "registration-submit"
-            to = "/registration"
+            class = "sign-in-submit"
+            to    = "/sign-in"
             flat 
             small 
         >
-            registration
+            signin
         </v-btn>
-        
-        <!-- Submit button -->
-        <v-btn
+
+        <!-- Submit registration -->        
+       <v-btn
             class = "sign-in-button mt-5"
             type  = "submit"
             block
             large
         > 
-            Sign in
+            Registration
         </v-btn>
     </form>
 </template>
@@ -53,7 +62,8 @@ export default {
 
             profile: {
                 password : '',
-                login    : ''
+                login    : '',
+                email    : ''
             }
         }
     },
@@ -77,12 +87,21 @@ export default {
                 !this.$v.profile.password.required && errors.push('Password is required');
 
                 return errors; 
-            }
+            },
+            emailErrors() {
+                const errors = [];
+
+                if (!this.$v.profile.email.$dirty) return errors;
+                !this.$v.profile.email.required && errors.push('Email is required');
+
+                return errors; 
+            },
     },
     validations: {
         profile: {
             login    : { required },
-            password : { required }
+            password : { required },
+            email    : { required }
         }
     },
     methods: {
@@ -97,7 +116,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .registration-submit {
+    .sign-in-submit {
         float          : right;
         margin         : 0;
         padding        : 0;
