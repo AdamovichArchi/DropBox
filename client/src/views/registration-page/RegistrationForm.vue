@@ -54,6 +54,7 @@
 <script>
 
 import { required } from 'vuelidate/lib/validators'
+import api from '@/api/users/registration'
 
 export default {
     data() {
@@ -105,13 +106,19 @@ export default {
         }
     },
     methods: {
-        validateForm() {
+        async validateForm() {
             this.$v.$touch();
 
             if (this.$v.$invalid) return;
+
+            try {
+                let checkRegistration = await api.registration(this.profile)
+                console.log(checkRegistration)
+            } catch(error) {
+                console.log(error)
+            }
         }
     }
-  
 }
 </script>
 
