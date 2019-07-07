@@ -1,0 +1,19 @@
+Client
+- Vue.js/Vuex/Routing
+- Vuetify
+- Axios
+- Vuelidate
+- SCSS
+
+Server
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- Nodemon
+- Validator
+- JsonWebToken
+
+Additional applications
+- Postman
+- Robo 3T
