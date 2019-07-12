@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+const env = require('../../src/config/env')
 
-mongoose.connect('mongodb://127.0.0.1:27017/Dropbox', {
+mongoose.connect(env.MONGODB_URL, {
     useNewUrlParser: true,
     useCreateIndex: true
 }).then(() => {

@@ -21,7 +21,16 @@
             :error-messages = "passwordErrors"
             label           = "Password"
         ></v-text-field>
-
+        <!-- Link to registration -->
+        <v-btn 
+            class = "registration-submit"
+            to = "/registration"
+            flat 
+            small 
+        >
+            registration
+        </v-btn>
+        
         <!-- Submit button -->
         <v-btn
             class = "sign-in-button mt-5"
@@ -36,14 +45,16 @@
 <script>
 
 import { required } from 'vuelidate/lib/validators'
+import auth from '@/api/users/authentication'
 
 export default {
     data() {
         return {
-            showPassword : false,
+            showPassword: false,
+
             profile: {
-                password     : '',
-                login        : ''
+                password : '',
+                login    : ''
             }
         }
     },
@@ -76,17 +87,35 @@ export default {
         }
     },
     methods: {
-        validateForm() {
+        async validateForm() {
             this.$v.$touch();
 
             if (this.$v.$invalid) return;
- 
-            console.log('Login: ', this.login)
-            console.log('Password: ', this.password)
+            
+            try {
+                let checkRegistration = await auth.signIn(this.profile)
+                let jsonDataOfuser = JSON.stringify(checkRegistration.data)
+
+                localStorage.setItem('user', jsonDataOfuser);
+
+                console.log(checkRegistration)
+            } catch(error) {
+                console.log(error)
+            }
         }
     }
   
 }
 </script>
+
+<style lang="scss" scoped>
+    .registration-submit {
+        float          : right;
+        margin         : 0;
+        padding        : 0;
+        text-transform : lowercase;
+        font-family    : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    }
+</style>
 
 
