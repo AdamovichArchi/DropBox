@@ -54,7 +54,7 @@
 <script>
 
 import { required } from 'vuelidate/lib/validators'
-import api from '@/api/users/registration'
+import auth from '@/api/users/authentication'
 
 export default {
     data() {
@@ -112,7 +112,7 @@ export default {
             if (this.$v.$invalid) return;
 
             try {
-                let checkRegistration = await api.registration(this.profile)
+                let checkRegistration = await auth.registration(this.profile)
                 console.log(checkRegistration)
             } catch(error) {
                 console.log(error)

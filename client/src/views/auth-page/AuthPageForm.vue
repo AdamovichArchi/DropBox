@@ -45,6 +45,7 @@
 <script>
 
 import { required } from 'vuelidate/lib/validators'
+import auth from '@/api/users/authentication'
 
 export default {
     data() {
@@ -86,10 +87,21 @@ export default {
         }
     },
     methods: {
-        validateForm() {
+        async validateForm() {
             this.$v.$touch();
 
             if (this.$v.$invalid) return;
+            
+            try {
+                let checkRegistration = await auth.signIn(this.profile)
+                let jsonDataOfuser = JSON.stringify(checkRegistration.data)
+
+                localStorage.setItem('user', jsonDataOfuser);
+
+                console.log(checkRegistration)
+            } catch(error) {
+                console.log(error)
+            }
         }
     }
   
