@@ -40,14 +40,23 @@
         > 
             Sign in
         </v-btn>
+
+        <!-- Snackbar -->
+        <Snackbar></Snackbar>
     </form>
 </template>
 <script>
 
 import { required } from 'vuelidate/lib/validators'
 import auth from '@/api/users/authentication'
+import { mapMutations, mapState } from 'vuex'
+
+const Snackbar = () => import(
+    /* webpackChunkName: 'base-snackbar' */ '@/components/widgets/snackbar/Snackbar.vue'
+);
 
 export default {
+    components: { Snackbar },
     data() {
         return {
             showPassword: false,
@@ -59,26 +68,29 @@ export default {
         }
     },
     computed: {
-            /**
-             * Sets array of errors appeared during login validation.
-             * @return {array} The array of errors.
-             */
-            loginErrors() {
-                const errors = [];
+        ...mapState('auth', {
+            user: state => state.user
+        }),
+        /**
+         * Sets array of errors appeared during login validation.
+         * @return {array} The array of errors.
+         */
+        loginErrors() {
+            const errors = [];
 
-                if (!this.$v.profile.login.$dirty) return errors;
-                !this.$v.profile.login.required && errors.push('Login is required');
+            if (!this.$v.profile.login.$dirty) return errors;
+            !this.$v.profile.login.required && errors.push('Login is required');
 
-                return errors; 
-            },
-            passwordErrors() {
-                const errors = [];
+            return errors; 
+        },
+        passwordErrors() {
+            const errors = [];
 
-                if (!this.$v.profile.password.$dirty) return errors;
-                !this.$v.profile.password.required && errors.push('Password is required');
+            if (!this.$v.profile.password.$dirty) return errors;
+            !this.$v.profile.password.required && errors.push('Password is required');
 
-                return errors; 
-            }
+            return errors; 
+        }
     },
     validations: {
         profile: {
@@ -87,6 +99,8 @@ export default {
         }
     },
     methods: {
+        ...mapMutations('auth', ['uploadUser']),
+
         async validateForm() {
             this.$v.$touch();
 
@@ -98,9 +112,14 @@ export default {
 
                 localStorage.setItem('user', jsonDataOfuser);
 
-                console.log(checkRegistration)
+                this.uploadUser(checkRegistration.data);
+                this.showInfoSnackbar('You are loggined.');
+
+                setTimeout(() => {
+                    this.$router.push('/dropbox');
+                }, 2000);
             } catch(error) {
-                console.log(error)
+                this.showInfoSnackbar('Invalid login or password.');
             }
         }
     }

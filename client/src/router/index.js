@@ -5,44 +5,41 @@ import store from '@/store/index';
 
 
 /** Other application pages */
-const AuthPage = () => import(/* webpackChunkName: "auth-page" */ '@/views/auth-page/AuthPage.vue');
+const AuthPage         = () => import(/* webpackChunkName: "auth-page" */ '@/views/auth-page/AuthPage.vue');
 const RegistrationPage = () => import(/* webpackChunkName: "auth-page" */ '@/views/registration-page/RegistrationPage.vue');
-// const MainPage = () => import(/* webpackChunkName: "main-page" */ '@/views/main-page/MainPage.vue');
+const MainPage 		   = () => import(/* webpackChunkName: "main-page" */ '@/views/main-page/MainPage.vue');
 
 Vue.use(Router);
 
 const routes = [
-	// {
-	// 	path      : '/Dropbox', 
-	// 	name      : 'mainPage',
-	// 	component : MainPage,
-	// 	meta      : {
-	// 		appName: 'DropBox'
-	// 	},
-	// 	async beforeEnter(to, from, next) {
-	// 		try {
-	// 			await store.dispatch('auth/readState');
+	{
+		path      : '/dropbox', 
+		name      : 'mainPage',
+		component : MainPage,
+		meta      : {
+			appName: 'DropBox'
+		},
+		beforeEnter(to, from, next) {
+			try {
+				let user 	    = JSON.parse(localStorage.getItem('user'));
+				let currentTime = Date.now();
+				let endTime     = new Date(user.exp * 1000);
+				let validDate   = (currentTime <= endTime);
+				
+				if (user.token && user.token.length > 0 && validDate) {
+					return next();
+				}
 
-	// 			return next();
-	// 		}
-	// 		catch (errors) {
-	// 			return next('/sign-in');
-	// 		}
-	// 	},
-	// 	children: [	
-	// 		...companies,
-	// 		...locations,
-	// 		...partsClassification,
-	// 		...reports,
-	// 		...storekeeper,
-	// 		...transport,
-	// 		...typer,
-	// 		...users,
-	// 		...settings,
-	// 		...workingShifts,
-	// 		...companyProfile
-	// 	]   
-	// },
+				next('/sign-in')
+			}
+			catch (errors) {
+				return next('/sign-in');
+			}
+		},
+		children: [	
+			// ...companies,
+		]   
+	},
 	{
 		path      : '/sign-in',
 		name      : 'authPage',
@@ -53,10 +50,10 @@ const routes = [
 		name      : 'registrationPage',
 		component : RegistrationPage
 	},
-	// {
-	// 	path     : '*',
-	// 	redirect : '/shop'
-	// }
+	{
+		path     : '*',
+		redirect : '/dropbox'
+	}
 ];
 
 export default new Router({

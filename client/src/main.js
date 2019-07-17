@@ -13,10 +13,14 @@ import App from './App.vue'
 import router from './router/index';
 import store  from './store/index';
 
-Vue.use(Vuetify)
-Vue.use(Vuelidate)
+import SnackbarPlugin from './components/widgets/snackbar/snackbar.plugin';
 
-Vue.config.productionTip = false
+Vue.use(Vuetify);
+Vue.use(Vuelidate);
+
+Vue.use(SnackbarPlugin);
+
+Vue.config.productionTip = false;
 
 new Vue({
   router,

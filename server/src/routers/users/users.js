@@ -67,9 +67,9 @@ router.post('/auth', async (req, res, next) => {
 
         // Create JWT
         const token = jwt.sign(user.toJSON(), env.JWT_KEY, {
-            expiresIn: '15m'
+            expiresIn: '12h'
         });
-        
+
         const { iat, exp } = jwt.decode(token);
 
         // Respond with token

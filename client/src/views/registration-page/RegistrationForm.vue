@@ -49,6 +49,9 @@
         > 
             Registration
         </v-btn>
+
+        <!-- Snackbar -->
+        <Snackbar></Snackbar>
     </form>
 </template>
 <script>
@@ -56,7 +59,12 @@
 import { required } from 'vuelidate/lib/validators'
 import auth from '@/api/users/authentication'
 
+const Snackbar = () => import(
+    /* webpackChunkName: 'base-snackbar' */ '@/components/widgets/snackbar/Snackbar.vue'
+);
+
 export default {
+    components: { Snackbar },
     data() {
         return {
             showPassword: false,
@@ -113,6 +121,7 @@ export default {
 
             try {
                 let checkRegistration = await auth.registration(this.profile)
+                this.showInfoSnackbar('You registrated');
                 console.log(checkRegistration)
             } catch(error) {
                 console.log(error)
