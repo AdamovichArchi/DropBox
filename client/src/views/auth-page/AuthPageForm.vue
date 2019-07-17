@@ -33,8 +33,9 @@
         
         <!-- Submit button -->
         <v-btn
-            class = "sign-in-button mt-5"
-            type  = "submit"
+            class     = "sign-in-button mt-5"
+            type      = "submit"
+            :disabled = "disableButton"
             block
             large
         > 
@@ -60,6 +61,7 @@ export default {
     data() {
         return {
             showPassword: false,
+            disableButton: false,
 
             profile: {
                 password : '',
@@ -107,6 +109,8 @@ export default {
             if (this.$v.$invalid) return;
             
             try {
+                this.disableButton = true;
+
                 let checkRegistration = await auth.signIn(this.profile)
                 let jsonDataOfuser = JSON.stringify(checkRegistration.data)
 
@@ -114,11 +118,14 @@ export default {
 
                 this.uploadUser(checkRegistration.data);
                 this.showInfoSnackbar('You are loggined.');
-
+                
                 setTimeout(() => {
+                    this.disableButton = false;
                     this.$router.push('/dropbox');
                 }, 2000);
             } catch(error) {
+                this.disableButton = false;
+
                 this.showInfoSnackbar('Invalid login or password.');
             }
         }

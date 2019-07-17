@@ -1,4 +1,4 @@
-const axios  = require('axios');
+const axios = require('axios');
 
 const domain = process.env.VUE_API_DOMAIN || 'http://localhost:3000';
 const token  = localStorage.getItem('user') === null ? '' : JSON.parse(localStorage.getItem('user')).token;
@@ -13,7 +13,7 @@ function sendRequest(data, method, url) {
             if (error.response.status === 401) {
                 localStorage.user = '';
             }
-            console.error(error)
+            
             throw error;
         });
 }

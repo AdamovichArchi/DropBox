@@ -42,8 +42,9 @@
 
         <!-- Submit registration -->        
        <v-btn
-            class = "sign-in-button mt-5"
-            type  = "submit"
+            class     = "sign-in-button mt-5"
+            type      = "submit"
+            :disabled = "disableButton"
             block
             large
         > 
@@ -67,7 +68,8 @@ export default {
     components: { Snackbar },
     data() {
         return {
-            showPassword: false,
+            showPassword : false,
+            disableButton     : false,
 
             profile: {
                 password : '',
@@ -120,11 +122,19 @@ export default {
             if (this.$v.$invalid) return;
 
             try {
-                let checkRegistration = await auth.registration(this.profile)
+                this.disableButton = true;
+
+                await auth.registration(this.profile);
+
                 this.showInfoSnackbar('You registrated');
-                console.log(checkRegistration)
+                this.disableButton = false;
+
+                 setTimeout(() => {
+                    this.$router.push('/dropbox');
+                    this.disableButton = false;
+                }, 2000);
             } catch(error) {
-                console.log(error)
+                this.showInfoSnackbar(error);
             }
         }
     }

@@ -19,7 +19,7 @@ const routes = [
 		meta      : {
 			appName: 'DropBox'
 		},
-		beforeEnter(to, from, next) {
+		beforeEnter(to, from , next) {
 			try {
 				let user 	    = JSON.parse(localStorage.getItem('user'));
 				let currentTime = Date.now();

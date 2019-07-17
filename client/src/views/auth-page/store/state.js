@@ -1,8 +1,8 @@
 const state = {
     user: {
-        token: '',
-        exp: '',
-        iat: ''
+        token : '',
+        exp   : '',
+        iat   : ''
     }
 };
 
