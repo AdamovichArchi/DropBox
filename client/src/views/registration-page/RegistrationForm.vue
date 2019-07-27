@@ -32,9 +32,8 @@
         
         <!-- Link to sign-in -->
         <v-btn 
-            class = "sign-in-submit"
-            to    = "/sign-in"
-            flat 
+            class = "sign-in-submit mb-5"
+            to    = "/sign-in" 
             small 
         >
             signin
@@ -148,6 +147,13 @@ export default {
         padding        : 0;
         text-transform : lowercase;
         font-family    : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        font-weight: 100;
+        background: none !important;
+        box-shadow: none;
+    }
+
+    .theme--dark.v-btn:hover:before {
+        opacity: 0;
     }
 </style>
 

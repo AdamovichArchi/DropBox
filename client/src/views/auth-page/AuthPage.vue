@@ -6,7 +6,7 @@
     <v-container
       class = "sign-in-page-wrapper"
       fluid
-      full-height
+      fill-height
     >
       <v-layout 
         align-center 
@@ -15,14 +15,14 @@
       >
       <!-- Title -->
         <v-flex
-          class = "display-3 font-wight-thin mb-5"
+          class = "display-3 font-wight-thin main-title-auth"
         >
           DropBox
         </v-flex>
 
         <!-- Form -->
         <v-flex
-          class = "sign-in-page-wrapper__form mx-5 mt-5"
+          class = "sign-in-page-wrapper__form mt-5 mx-5"
           shrink
         >
           <AuthForm></AuthForm>
@@ -45,8 +45,8 @@ export default {
   .app-wrapper {
     position : absolute;
     width    : 100%;
-    
-    .sign-in-page-wrapper {
+
+    .main-title-auth {
       flex: none;
     }
   }

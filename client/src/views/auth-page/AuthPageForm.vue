@@ -23,9 +23,8 @@
         ></v-text-field>
         <!-- Link to registration -->
         <v-btn 
-            class = "registration-submit"
-            to = "/registration"
-            flat 
+            class = "registration-submit mb-5"
+            to = "/registration" 
             small 
         >
             registration
@@ -140,7 +139,14 @@ export default {
         margin         : 0;
         padding        : 0;
         text-transform : lowercase;
-        font-family    : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        font-family    : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 100;
+        background: none !important;
+        box-shadow: none;
+    }
+
+    .theme--dark.v-btn:hover:before {
+        opacity: 0;
     }
 </style>
 

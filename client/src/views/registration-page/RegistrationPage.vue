@@ -1,12 +1,11 @@
 <template>
   <v-app
     class = "app-wrapper"
-    dark
   >
     <v-container
       class = "registration-page-wrapper"
       fluid
-      full-height
+      fill-height
     >
       <v-layout 
         align-center 
@@ -15,7 +14,7 @@
       >
       <!-- Title -->
         <v-flex
-          class = "display-3 font-wight-thin mb-5"
+          class = "display-3 font-wight-thin mb-5 main-title-reg"
         >
           DropBox
         </v-flex>
@@ -47,6 +46,10 @@ export default {
     width    : 100%;
     
     .registration-page-wrapper {
+      flex: none;
+    }
+
+    .main-title-reg {
       flex: none;
     }
   }

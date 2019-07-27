@@ -11,7 +11,6 @@
         <v-btn  
             :color = "snackbarElm.color" 
             @click = "hideSnackbar"
-            flat
         > 
             OK 
         </v-btn>
